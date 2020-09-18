@@ -9,13 +9,15 @@ const findLongestSubstring = (str) => {
   while (j < str.length) {
     if (!obj[str[j]]) {
       obj[str[j]] = (obj[str[j - 1]] || 0) + 1;
-      console.log("no", obj[str[j]]);
       maxLength = Math.max(maxLength, obj[str[j]]);
+      // console.log("no", obj[str[j]], "j", j, "i", i, obj);
       j++;
     } else {
-      obj[str[j]] = 1;
-      console.log("yes", obj[str[j]]);
-      j++;
+      //값이 있을때면 몇번째에서 값이 있었는지 obj에 저장된 값이 i와 j가 되고 j는 하나 늘어난다.
+      i++;
+      j = i;
+      obj = {};
+      // console.log("end", "i", i, "j", j, obj[str[j]]);
     }
   }
   return maxLength;
