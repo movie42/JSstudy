@@ -29,5 +29,4 @@
     merge, quick, radix sort는 정말 미친듯이 빠르다.
     왜 이런 차이가 나는걸까? 작은 논리의 차이에 이런 큰 변화가 있다는 게 신기할 따름이다.
 
-5.  Data Structures
-    두 번째 복습을 하면서 찬찬히 글을 남겨봐야지...
+# Data Structure Note with JavaScript
