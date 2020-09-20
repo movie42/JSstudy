@@ -8,22 +8,22 @@
 
 > 문제는 udemy algorithm 강의 (출처를 밝히면 내가 그냥 해답을 공개하는 것 같아서 걍 안밝힌다. 어차피 수강을 하면 해답을 전부 다 제공해 준다.)
 
-1.  Algorithm pattern
+1.  Algorithm pattern  
     기본 패턴이라고 한다. 처음엔 완전 생각하다 지쳐서 못 풀었는데 이제 비슷한 문제 나오면 생각을 확장 시킬 수 있어서 좋다. 역시 사람은 배워야 하는 것 같다... ㅎㅎ 하지만 아직 cordwar는 어려운 문제들이 많다. 그리고 거긴 거의 이런 패턴을 쓰지 않는다.
     이유가 뭘까? 내장 함수가 algorithm pattern보다 빠르기 때문일까? 잘 모르겠다.
 
-2.  Recursion
+2.  Recursion  
     재귀함수 기본 문제 몇번 풀다보면 응용문제도 다 풀린다.
     재귀적으로 생각하는 것은 함수형 프로그래밍을 할 때 도움이 된다고 한다.
     생각해보면 map이나 loop를 통해서 그냥 쉽게 풀수 있는데 재귀로 푸는 이유는 함수가 멋있어 보여서? 그러는건가... 아직 경험이 많이 없어서 잘 모르겠다.
 
-3.  Searching Algorithm
+3.  Searching Algorithm  
     진짜 linear, binary, niveString Search는 매우 쉽다. 정말 쉽다. 하지만... KNP는 왜 나에게 지옥의 난의도로 느껴지는걸까... 역시 반복 밖에 없는건가. 게다가 아직 업뎃도 안되서 YOUTUBE 강의 보고 공부 중이다.
 
     - KNP Algorithm 참고 강의
       동빈나 : https://www.youtube.com/watch?v=yWWbLrV4PZ8
 
-4.  Sort
+4.  Sort  
     데이터 정렬 생각해보면 5개 6개정도야 그냥 bubbleSort 혹은 내장 함수를 사용하면 되겠지만 데이터가 만약에 1만개 넘고 10만개 넘고 1000만개 넘고 그러면... 속도가 관건이긴 하겠다.
     뭐가 빠른지는 모르지만 bubble, insertion, select sort는 느리다.
     merge, quick, radix sort는 정말 미친듯이 빠르다.
@@ -52,6 +52,6 @@
    - class를 사용하기 위해서는 변수를 생성하여 해당 class의 이름을 설정하주고 new를 사용해 class를 불러온다.
    - [MDN : Constructor의 정의와 사용 예제](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Classes/constructor "Constructor의 정의와 사용 예제.")
 
-1. Singly Linked List(단일 연결 리스트)
+1. Singly Linked List(단일 연결 리스트)  
    단일 연결 리스트는 head와 tail이 있고(머리와 꼬리) 머리에서부터 꼬리까지 각, 노드들의 연결로 이루어져있다. Singly Linked List는 Node의 Value를 저장하고 Next로 다음 Node를 가리키는 형태로 저장된다. 공부를 하면서 왜 배열을 사용하지 않고 Singly Linked List를 사용하는 걸까?라는 생각이 들었다. 설명을 들으면 왠지 너무 불편해 보인다. 해당 index의 value를 찾으려면 head에서부터 순차적으로 다음 값을 탐색하여 가서 찾아내야한다.
    아직 tree나 graph를 복습하지 않아서 그런지는 모르겠지만 이 둘의 모체가 되어보이기는 하다. (어쨌든 tree는 root가 있을 것이고 graph는 없더라도 node들의 선형 연결이 복잡하게 얽혀있는 것은 사실이니까.) 그 둘의 개념을 이해하기 위해서 선행으로 공부하는게 아닌가 싶다.
