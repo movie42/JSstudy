@@ -20,8 +20,7 @@
 3.  Searching Algorithm  
     진짜 linear, binary, niveString Search는 매우 쉽다. 정말 쉽다. 하지만... KNP는 왜 나에게 지옥의 난의도로 느껴지는걸까... 역시 반복 밖에 없는건가. 게다가 아직 업뎃도 안되서 YOUTUBE 강의 보고 공부 중이다.
 
-    - KNP Algorithm 참고 강의
-      동빈나 : https://www.youtube.com/watch?v=yWWbLrV4PZ8
+    [KNP Algorithm 참고 강의 : 동빈나](https://www.youtube.com/watch?v=yWWbLrV4PZ8)
 
 4.  Sort  
     데이터 정렬 생각해보면 5개 6개정도야 그냥 bubbleSort 혹은 내장 함수를 사용하면 되겠지만 데이터가 만약에 1만개 넘고 10만개 넘고 1000만개 넘고 그러면... 속도가 관건이긴 하겠다.
