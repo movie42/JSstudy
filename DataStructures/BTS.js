@@ -55,17 +55,70 @@ class BinarySearchTree {
       return current;
     }
   }
+
+  BFS() {
+    let data = [];
+    let queue = [];
+    let node = this.root;
+    queue.push(this.root);
+    while (queue.length) {
+      node = queue.shift();
+      data.push(node.value);
+      if (node.left) queue.push(node.left);
+      if (node.right) queue.push(node.right);
+    }
+    return data;
+  }
+
+  DFSPreOrder() {
+    let data = [];
+    function traverse(node) {
+      data.push(node.value);
+      if (node.left) traverse(node.left);
+      if (node.right) traverse(node.right);
+    }
+    traverse(this.root);
+    return data;
+  }
+
+  DFSPostOrder() {
+    let data = [];
+    function traverse(node) {
+      if (node.left) traverse(node.left);
+      if (node.right) traverse(node.right);
+      data.push(node.value);
+    }
+    traverse(this.root);
+    return data;
+  }
+
+  DFSInOrder() {
+    let data = [];
+    function traverse(node) {
+      if (node.left) traverse(node.left);
+      data.push(node.value);
+      if (node.right) traverse(node.right);
+    }
+    traverse(this.root);
+    return data;
+  }
 }
 
 const BTS = new BinarySearchTree();
 
-BTS.insert(55);
-BTS.insert(22);
-BTS.insert(72);
-BTS.insert(19);
-BTS.insert(1);
+BTS.insert(10);
+BTS.insert(6);
+BTS.insert(15);
+BTS.insert(3);
+BTS.insert(8);
+BTS.insert(20);
 
 console.log(BTS);
 
-console.log(BTS.find(55));
-console.log(BTS.find(43));
+// console.log(BTS.find(55));
+// console.log(BTS.find(43));
+
+// console.log(BTS.BFS());
+// console.log(BTS.DFSPreOrder());
+// console.log(BTS.DFSPostOrder());
+console.log(BTS.DFSInOrder());
