@@ -1,12 +1,13 @@
 # Algorithm Note with JavaScript
 
-> 최신 : 2020년 9월 18일
+> 최신 : 2020년 9월 21일
 
 ## INTRO
 
 알고리즘의 세계는 정말 신기하고도 놀라운 세계인 것 같다. 하지만 처음은 정말 어렵다. 사실 ['33 Concepts Every JavaScript Developer Should Know'](https://github.com/leonardomso/33-js-concepts)에서 문서를 쭉 보다가 알고리즘 공부가 Should Know에 속하는 걸 알게 되었다. 처음에 웹 개발은 그저 화면에 오브젝트들을 표시하고 하이퍼링크를 따라 이리저리 다닐수만 있으면 된다고 생각했는데 공부하면 할 수록 끝이없다. 다음 상자를 열면 분명 선물이 들어있을 것이라고 생각해서 열어보면 또 다른 미션이 적힌 종이와 함께 약간 작은 상자가 들어있는... 그나마 다행인건 조금씩 공부하는 재미가 있다.
 
-> 문제는 udemy algorithm 강의 (출처를 밝히면 내가 그냥 해답을 공개하는 것 같아서 걍 안밝힌다. 어차피 수강을 하면 해답을 전부 다 제공해 준다.)
+나는 [Udemy JavaScript Algorithm 강의](https://www.udemy.com/course/js-algorithms-and-data-structures-masterclass/)
+로 공부를 했다.
 
 1.  Algorithm pattern  
     기본 패턴이라고 한다. 처음엔 완전 생각하다 지쳐서 못 풀었는데 이제 비슷한 문제 나오면 생각을 확장 시킬 수 있어서 좋다. 역시 사람은 배워야 하는 것 같다... ㅎㅎ 하지만 **아직** cordwar는 어려운 문제들이 많다. 그리고 거긴 거의 이런 패턴을 쓰지 않는다.
@@ -77,3 +78,20 @@
    자바스크립트 배열에 데이터를 넣고 제거하는 방법인 push, shift와 unshift pop 두쌍의 작동 방법이 이 개념과 같다. 어느 방법을 사용해도 인덱스를 다시 지정해주어야한다.
 
    큐는 역시 SLL을 기반으로 Enqueue와 Dequeue로 구성할 수 있다. 선입 선출이기 때문에 끝에서부터 넣고 처음 항목을 제거하도록 구성하는게 효율적이다.
+
+5. Trees(트리)  
+   - Binary Search Trees (BST)
+     - 최대 두개의 자식을 가질 수 있다.
+     - 부모보다 큰 값은 오른쪽에 작은 값은 왼쪽에 있다.(왼쪽에 부모 노드보다 큰 값이 올 수 없다. 손자 노드는 조상 노드보다 클 수 있다.)
+     - BTS가 사용되는 이유는 무엇일까? 검색이 빠르다. 특정 값을 찾기 위해 모든 트리를 횡단할 필요가 없다.
+
+   - Tree Travel(트리 순회)  
+      어떤 상황에서 왜 BFS 혹은 DFS를 사용하는걸까?
+      공간 복잡성의 차이가 있기 때문이다. 그래서 상대적으로 깊이가 깊은 Tree에서는 BFS가 유용할것이고 상대적으로 넓이가 넓은 Tree에서는 DFS가 유용할것이다.(메모리 저장을 덜 하는 방향으로 생각했을 때) 
+     - BFS : 넓이 우선 검색  
+         형제 노드들을 먼저 탐색하는 방법.
+     - DFS : 깊이 우선 검색
+       - DFS InOrder : 결과는 순서대로 정렬된 데이터를 얻을 수 있다.
+       - DFS PreOrder : Tree를 복제하는데 유용하다.
+       - DFS PostOrder : Tree를 삭제할 때 이용되고 수식 트리에서 postfix 수식을 얻는데 유용하다고 한다.[DFS PostOrder 참고 블로그](https://prosaist0131.tistory.com/entry/%ED%8A%B8%EB%A6%AC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
+
