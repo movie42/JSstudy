@@ -95,3 +95,19 @@
        - DFS PreOrder : Tree를 복제하는데 유용하다.
        - DFS PostOrder : Tree를 삭제할 때 이용되고 수식 트리에서 postfix 수식을 얻는데 유용하다고 한다.[DFS PostOrder 참고 블로그](https://prosaist0131.tistory.com/entry/%ED%8A%B8%EB%A6%AC%EC%97%90-%EB%8C%80%ED%95%98%EC%97%AC)
 
+     - Binary Heap(이진 힙)  
+       Binary 힙은 Binary tree구조를 취하는데 BST와 자료를 구성하는 방법이 다르다. 일단 부모가 자녀보다 무조건 크다(혹은 작다)는 규칙을 가지고 있다. BST는 왼쪽은 무조건 작은 값 오른쪽은 큰값 이었지만 바이너리 힙은 그냥 부모보다 작으면 순서대로 왼쪽에서부터 자녀가 구성된다. 수업에서는 Max Binary Heap과 Min Binary Heap을 구성해보았다. Min Binary Heap은 Priority Queue에서 구현해보았다. 
+       Binary Heap은 그냥 부모가 자녀보다 크다(혹은 작다)는 규칙과 왼쪽부터 순서대로 저장된다.(부모는 자녀를 최대 두 개만 가질 수 있다.) 자료는 [49, 28, 32, 18, 2, 31, 30] 이런식으로 쌓인다. 그래서 부모가 자녀를 찾을 수 있는 혹은 자녀가 부모를 찾을 수 있는 수학 공식이 존재한다. 
+
+       ```
+       부모가 자녀를 찾는 방법 
+         왼쪽 자녀(첫째) : n * 2 + 1
+         오른 쪽 자녀(둘째) : n * 2 + 2
+
+       자녀가 부모를 찾는 방법
+         왼쪽 자녀(첫째) : Math.floor((n -1)/2);
+         오른쪽 자녀(둘째) : Math.floor((n-2)/2);
+
+      ```
+
+      Insert를 할때, Bubble up을 하거나 Max Value Extract를 할 때, Bubble down을 할때 유용하게 사용된다.
