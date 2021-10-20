@@ -10,6 +10,7 @@
 ### [JAVASCRIPT THEORY](./javascript_theory/README.md)
 
 - 자바스크립트의 작동 원리를 이해하고 설명할 수 있어야한다는 생각이 들었다. 그래서 시작한 프로젝트.
+
 > 참조
 > [모던 자바스크립트 입문](http://www.yes24.com/Product/Goods/59410698)
 > [구글 검색](https://google.com)
@@ -22,7 +23,6 @@
   [VanillaJS 프로젝트](https://github.com/movie42/vanillaJS_PJ)
     - 인터넷에서 본 예제를 따라 만든 프로젝트. 
     - 원칙은 내가 먼저 만들어보는 것이지만 최근 canvas를 활용한 프로젝트는 따라 만들면서 원리를 파악중
-
 
 ### [JAVASCRIPT ALGORITHM](./javascript_algorithm/README.md)
 

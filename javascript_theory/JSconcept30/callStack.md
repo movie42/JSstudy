@@ -6,7 +6,8 @@
     그래서 동시에 여러 코드가 실행될 수 없다. (하나의 코드만 실행할 수 있다.)
     Call Stack은 Data Structure로 할일을 기억한다.(STACK : LIFO)
 
-2. 블로킹    
+2. 블로킹
+
    느리게 실행되는 코드.(정확한 정의는 없다.) 동기로 실행되는 코드가 있다면 해당 데이터를 전부 불러올 때 까지 다른 동작은 실행을 하지 못하게 된다. 왜냐하면 자바스크립트는 싱글 스레드 프로그래밍 언어이기 때문에 스텍에 실행해야하는 함수가 쌓여있고 데이터를 다 불러올때까지 Call Stack에서 지워지지 않기 때문이다.
 
 3. 비동기(acynchronous callbacks)  
@@ -14,6 +15,7 @@
    [영상 10분 39초](https://www.youtube.com/watch?v=8aGhZQkoFbQ&t=639)
    
    - 예제 코드  
+
     ``` Javascript
         console.log("something");
 
