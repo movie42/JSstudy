@@ -27,10 +27,23 @@
 
 ## 객체와 배열, 함수
 
-> 날짜 : 2021.9.23 ~ 
+> 날짜 : 2021.9.23 ~ 10.20  
+> 회차 : 2회차  
+> 서적 : 모던 자바스크립트 입문  
+
+0. memo  
+한번에 통합해서 공부하려고 했던게 오히려 독이되었다. 분할 정복으로 천천히 다시 시작하자.
+
+1. [객체](./3object_function_array/object.md)  
+2. [함수](./3object_function_array/function.md)  
+3. [생성자](./3object_function_basic/3constructor.md)  
+4. [배열](./3object_function_basic/4array_basic.md)  
+
+  
+
+## 표현식과 연산자
+
+> 날짜 : 2021.10.20
 > 회차 : 2회차
 > 서적 : 모던 자바스크립트 입문
-> [객체](./3object_function_array/object.md)
-> [함수](./3object_function_array/function.md)
 
-한번에 통합해서 공부하려고 했던게 오히려 독이되었다. 분할 정복으로 천천히 다시 시작하자.

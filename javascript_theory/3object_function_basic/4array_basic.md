@@ -34,8 +34,14 @@ const addArray = [1,2,3]
 addArray[3] = 4
 addArray.push(5)
 
+// 삭제를 하면 그 요소를 삭제해도 길이는 달라지지 않는다.
 delete a[1]
 
-// 삭제를 하면 그 요소를 삭제해도 길이는 달라지지 않는다.
+// [1,undefined,3,4,5] -> 희소배열
+console.log(addArray) 
 ```
+
+
+
+
 
