@@ -24,6 +24,15 @@
     - [클로저의 성질](#클로저의-성질)
     - [정리](#정리)
     - [클로저를 응용한 예](#클로저를-응용한-예)
+  - [이름 공간](#이름-공간)
+    - [함수를 이름 공간으로 활용하기](#함수를-이름-공간으로-활용하기)
+  - [객체로써의 함수](#객체로써의-함수)
+    - [함수의 프로퍼티](#함수의-프로퍼티)
+      - [Function.prototype의 프로퍼티](#functionprototype의-프로퍼티)
+    - [함수에 프로퍼티 추가하기](#함수에-프로퍼티-추가하기)
+      - [메모제이션(함수에 프로퍼티 추가 응용 예제)](#메모제이션함수에-프로퍼티-추가-응용-예제)
+  - [고차 함수](#고차-함수)
+    - [예들](#예들)
 
 ## 함수를 정의하는 방법
 
@@ -511,3 +520,253 @@ console.log(counter());
 ### 클로저를 응용한 예
 
 - 데이터와 데이터를 조작하는 함수를 하나로 묶을 수 있다. 객체 지향 프로그래밍에서 프로퍼티를 조작하는 메서드와 역할이 비슷하다.
+
+> 출처 : 모던 자바스크립트 입문
+
+[클로저 응용 예제](8closuers_pattern.js)
+
+1. 여러 개의 내부 상태와 메서드를 가진 클로저
+
+```javascript
+function Person(name, age) {
+  let _name = name;
+  let _age = age;
+  return {
+    getName: function () {
+      return _name;
+    },
+    getAge: function () {
+      return _age;
+    },
+    setAge: function (x) {
+      _age = x;
+    }
+  };
+}
+
+const person = Person("Js", 18);
+console.log(person.getName());
+console.log(person.getAge());
+person.setAge(20);
+console.log(person.getAge());
+```
+
+2. 함수 팩토리
+
+```javascript
+function makeMultiplier(x) {
+  return function (y) {
+    return x * y;
+  };
+}
+
+const multi2 = makeMultiplier(2);
+const multi10 = makeMultiplier(10);
+
+console.log(multi2(3));
+console.log(multi10(3));
+```
+
+## 이름 공간
+
+### 함수를 이름 공간으로 활용하기
+
+**모듈 패턴**
+
+궁금한건... var로 했을 경우에는 전역 변수 오염이 되는데 const로 선언했을 때는 안 그런것 같은데, 모듈 패턴을 써야하나?
+
+```javascript
+const Module = {};
+
+(function (_Module) {
+  let name = "unknown";
+
+  function getName() {
+    return name;
+  }
+
+  _Module.showName = function () {
+    console.log(getName());
+  };
+
+  _Module.setName = function (_name) {
+    name = _name;
+  };
+})(Module);
+
+Module.setName("Gilgamesh‎");
+Module.showName();
+```
+
+## 객체로써의 함수
+
+자바스크립트에서 함수는 객체다.
+
+### 함수의 프로퍼티
+
+- caller : 현재 실행 중인 함수를 호출한 함수
+- length : 함수의 인자 개수
+- name : 함수를 표시할 때 사용하는 이름
+- prototype : 프로토타입 객체의 참조
+
+#### Function.prototype의 프로퍼티
+
+[9apply_call_bind](9apply_call_bind.js)
+
+1. apply(), call()
+
+- this 값과 함수의 인수를 사용하여 함수를 실행하는 메서드다. apply와 call의 동작은 본질적으로 같다. 함수를 넘기는 방법이 다르다.
+- 실행중인 함수의 argument를 apply에 넘겨도 실행이 가능하다.
+
+```javascript
+function say(greeting, honorifics) {
+  console.log(`${greeting}, ${honorifics} ${this.name}`);
+}
+
+const gilgamesh‎ = { name: "Gilgamesh‎" };
+const enkidu = { name : "Enkidu"};
+
+say.apply(gilgamesh, ["Hello", "Mr"])
+say.apply(enkidum, ["안녕", "길가메시 친구"])
+say.call(gilgamesh, "Hello", "Mr")
+say.call(enkidum, "안녕", "길가메시 친구")
+```
+
+2. bind()
+
+- 객체에 함수를 바인드한다.
+
+```javascript
+const sayToGilgamesh = say.bind(gilgamesh);
+sayToGilgamesh("Hello", "Mr");
+```
+
+### 함수에 프로퍼티 추가하기
+
+[10addProperty](10addProperty.js)
+
+```javascript
+function addProperty() {
+  return;
+}
+addProperty.p = a;
+addProperty.showP = function () {
+  return p;
+};
+```
+
+#### 메모제이션(함수에 프로퍼티 추가 응용 예제)
+
+[10addProperty](10addProperty.js)
+
+```javascript
+function fibonacci(n) {
+  if (n < 2) return 1;
+  if (!(n in fibonacci)) {
+    fibonacci[n] = fibonacci(n - 1) + fibonacci(n - 2);
+  }
+
+  return fibonacci[n];
+}
+
+console.log(fibonacci(10));
+```
+
+## 고차 함수
+
+함수를 인수로 받거나 반환하는 함수
+
+### 예들
+
+1. 함수를 인수로 사용하기
+
+[출처 : Higher-Order Functions in JavaScript](https://www.sitepoint.com/higher-order-functions-javascript/)
+
+```html
+<!-- 이벤트 리스너 -->
+
+<button id="btn">btn</button>
+
+<script>
+  const btn = document.querySelector("#btn");
+
+  // 함수를 인수로 사용하는 예.
+
+  btn.addEventListener("click", function () {
+    console.log(`id : ${this.id}`);
+  });
+
+  function handleClick() {
+    console.log(`id : ${this.id}`);
+  }
+
+  btn.addEventListener("click", handleClick);
+</script>
+```
+
+2. 함수를 결과로 반환하기
+
+일반적으로 생각할 수 있는 글자 바꾸기 함수. 문제 없이 동작은 하지만 재사용이 어렵다.
+[출처 : Higher-Order Functions in JavaScript](https://www.sitepoint.com/higher-order-functions-javascript/)
+
+```javascript
+const oldPeople = function (text) {
+  return text.replace(/millenials/gi, "Old People");
+};
+
+console.log(oldPeople("The Millenials are always up to something."));
+
+const happify = function (text) {
+  return text.replace(/baby boomers/gi, "Aging Happy People");
+};
+
+console.log(happify("The Baby Boomers just look the other way."));
+```
+
+함수 합성
+
+```javascript
+// 예제 1
+const attitude = function (original, replacement, source) {
+  return function (source) {
+    return source.replace(replacement, original);
+  };
+};
+
+const oldPeople = attitude(/millenials/gi, "Old People");
+const happify = attitude(/baby boomers/gi, "Aging Happy People");
+
+oldPeople("The Millenials are always up to something.");
+happify("The Baby Boomers just look the other way.");
+```
+
+[11higherOrderFunction](11higherOrderFunction.js)
+
+```javascript
+// 예제 2
+function compose(f, g) {
+  return function (x) {
+    return f(g(x));
+  };
+}
+
+function square(x) {
+  return x * x;
+}
+
+function sum1(x) {
+  return x + 1;
+}
+
+function minus2(x) {
+  return x - 2;
+}
+
+const three = compose(square, sum1);
+const five = compose(square, minus2);
+const sumFive = compose(sum1, minus2);
+
+console.log(three(3));
+console.log(sumFive(5));
+console.log(square(sumFive(5)));
+```
