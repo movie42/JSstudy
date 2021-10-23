@@ -39,8 +39,16 @@
 3. [생성자](./3object_function_basic/3constructor.md)
 4. [배열](./3object_function_basic/4array_basic.md)
 
-## 표현식과 연산자
+## [표현식과 연산자](4Expressions_operators/operator.md)
 
 > 날짜 : 2021.10.20
 > 회차 : 2회차
 > 서적 : 모던 자바스크립트 입문
+
+## [함수](7function/function.md)
+
+> 날짜 : 2021.10.20~22
+> 회차 : 2회차
+> 서적 : 모던 자바스크립트 입문
+
+## [함수형 자바스크립트](../javascript_FOP/README.md)

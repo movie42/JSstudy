@@ -33,7 +33,15 @@
       - [메모제이션(함수에 프로퍼티 추가 응용 예제)](#메모제이션함수에-프로퍼티-추가-응용-예제)
   - [고차 함수](#고차-함수)
     - [예제 모음](#예제-모음)
-  - [콜백 함수](#콜백-함수)
+  - [ES6부터 추가된 함수 기능](#es6부터-추가된-함수-기능)
+    - [화살표 함수](#화살표-함수)
+      - [함수 리터럴과 차이점](#함수-리터럴과-차이점)
+    - [이터레이터](#이터레이터)
+      - [이터레이션](#이터레이션)
+      - [이터네리터](#이터네리터)
+    - [제너레이터](#제너레이터)
+    - [템플릿 리터럴의 태그 함수](#템플릿-리터럴의-태그-함수)
+  - [여기까지 마쳤다면](#여기까지-마쳤다면)
 
 ## 함수를 정의하는 방법
 
@@ -343,7 +351,7 @@ var user = {
   name: "programer",
   sayHi: function () {
     console.log(`hi, ${this.name}`);
-  },
+  }
 };
 ```
 
@@ -541,7 +549,7 @@ function Person(name, age) {
     },
     setAge: function (x) {
       _age = x;
-    },
+    }
   };
 }
 
@@ -737,7 +745,8 @@ for (let i = 2; i <= N; i++) {
 }
 
 for (let i = 2; i + 2 <= N; i++) {
-  if (isPrimeMemo(i) && isPrimeMemo(i + 2)) console.log(i + "," + (i + 2));
+  if (isPrimeMemo(i) && isPrimeMemo(i + 2))
+    console.log(i + "," + (i + 2));
 }
 
 // 피보나치
@@ -819,7 +828,29 @@ console.log(sumFive(5));
 console.log(square(sumFive(5)));
 ```
 
-3. 커링
+3. 부분적용
+
+인수를 여러개 받는 함수의 몇몇 인수를 상수로 지정해서 새로운 함수를 생성하는 기법
+
+[13partailApplication](13partialApplication.js)
+
+```javascript
+function product(x, y) {
+  return x * y;
+}
+
+const product2 = function (y) {
+  return product(2, y);
+};
+
+console.log(product2(3)); //6
+
+const product3 = product.bind(null, 3);
+
+console.log(product3(4));
+```
+
+4. 커링
 
 [Curring In Javascript](https://dev.to/spukas/curring-in-javascript-1o45)
 
@@ -857,4 +888,124 @@ console.log(sum2(3));
 2. make function compositions(함수 다발(??) 만들기)
 3. 상태 유지
 
-## 콜백 함수
+## ES6부터 추가된 함수 기능
+
+### 화살표 함수
+
+```javascript
+// 작성방법
+const squar = (x) => x * x;
+
+// 반환값이 객체 리터럴이면 객체 리터럴을 () -그룹 연산자-로 묶어야한다.
+const user = (name, age) => ({ name, age });
+```
+
+#### 함수 리터럴과 차이점
+
+1. this값이 함수를 정의할 때 결정된다
+
+- 함수 리터럴로 정의한 함수의 this값은 함수를 호출될때 결정된다.
+- 화살표 함수는 함수를 정의할 때 this값이 결정된다.
+- 이벤트 리스터의 값이 window로 고정되는 것도 이와 같은 이유일까?
+
+```javascript
+const obj = {
+  say: function () {
+    console.log(this);
+    const f = function () {
+      console.log(this);
+    };
+    f();
+    const a = () => console.log(thi);
+    a();
+  }
+};
+obj.say();
+```
+
+2. arguments변수가 없다.
+
+```javascript
+const f = () => console.log(argument);
+f(); // ReferenceError : arguments is not defined
+```
+
+3. 생성자로 사용할 수 없다.
+
+```javascript
+const Person = (name, age) => {
+  this.name = name;
+  this.age = age;
+};
+
+const kim = new Person("kim", 20); // TypeError : Person is not a constructor
+```
+
+4. yield 키워드를 사용할 수 없다.
+
+- 제너레이터를 사용할 수 없다.
+
+### 이터레이터
+
+#### 이터레이션
+
+- 반복 처리라는 뜻, 데이터 안의 요소를 연속적으로 꺼내는 행위.
+- 내부적으로 처리되어 각 처리단계를 개발자가 제어할 수 없다.
+
+```javascript
+const a = [5, 4, 3];
+a.forEach((value) => console.log(value));
+```
+
+#### 이터네리터
+
+- 이터레이터는 반복 처리가 가능한 객체를 말한다.
+- 반복 처리를 단계별로 제어가 가능하다.
+- 배열은 Symbol.iterator 메서드를 가지고 있다.
+- next 메서드를 가진다.
+- next 메서드의 반환은 value 프로퍼티와 done 프로퍼티를 가진 객체이다.이때 vluae에는 꺼낸 값이 저장되고 done에는 반복이 끝났는지를 뜻하는 논리값이 저장된다.
+
+```javascript
+const a = [5, 4, 3];
+const iter = a[Symbol.iterator]();
+
+console.log(iter.next()); //Object {value:5, done:false}
+console.log(iter.next());
+console.log(iter.next());
+console.log(iter.next()); //Object {value:undefined, done:true}
+```
+
+### 제너레이터
+
+**제너레이터**
+
+- 반복 가능한 이터레이터를 값으로 반환한다.
+- 작업의 일시 정지와 재시작이 가능하며 자신의 상태를 관리한다.
+- 제너레이터는 이터레이터의 반복 처리를 강력하게 지원한다.
+- 반복 알고리즘을 유연하게 표현할 수 있다.
+
+**정의와 실행**
+
+```javascript
+function* gen() {
+  yield 1;
+  yield 2;
+  yield 3;
+}
+
+const iter = gen();
+console.log(iter.next());
+console.log(iter.next());
+console.log(iter.next());
+console.log(iter.next());
+```
+
+- yield는 프로그램이 일시적으로 정지하는 위치다.
+- 이터레이터의 next는 실행상태로 바꾼다.
+- 이터레이터 객체는 처리를 재개할 수 있도록 제너레이터 함수의 내부 상태를 모두 저장한다.
+
+### 템플릿 리터럴의 태그 함수
+
+## 여기까지 마쳤다면
+
+[함수형 자바스크립트](../javascript_FOP/README.md)
