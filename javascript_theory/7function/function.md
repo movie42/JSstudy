@@ -32,7 +32,8 @@
     - [함수에 프로퍼티 추가하기](#함수에-프로퍼티-추가하기)
       - [메모제이션(함수에 프로퍼티 추가 응용 예제)](#메모제이션함수에-프로퍼티-추가-응용-예제)
   - [고차 함수](#고차-함수)
-    - [예들](#예들)
+    - [예제 모음](#예제-모음)
+  - [콜백 함수](#콜백-함수)
 
 ## 함수를 정의하는 방법
 
@@ -342,7 +343,7 @@ var user = {
   name: "programer",
   sayHi: function () {
     console.log(`hi, ${this.name}`);
-  }
+  },
 };
 ```
 
@@ -540,7 +541,7 @@ function Person(name, age) {
     },
     setAge: function (x) {
       _age = x;
-    }
+    },
   };
 }
 
@@ -674,9 +675,10 @@ console.log(fibonacci(10));
 
 ## 고차 함수
 
-함수를 인수로 받거나 반환하는 함수
+- 함수를 인수로 받거나 반환하는 함수
+- 예제를 많이 보고 사용해보는 게 좋은 것같다.
 
-### 예들
+### 예제 모음
 
 1. 함수를 인수로 사용하기
 
@@ -704,6 +706,52 @@ console.log(fibonacci(10));
 </script>
 ```
 
+**메모이제이션**
+
+[11higherOrderFunction 예제1](11higherOrderFunction.js)
+
+```javascript
+function memorize(f) {
+  const cache = {};
+  return function (x) {
+    if (cache[x] === undefined) cache[x] = f(x);
+    return cache[x];
+  };
+}
+
+function isPrime(n) {
+  if (n < 2) return false;
+  const m = Math.sqrt(n);
+  for (let i = 0; i <= m; i++) {
+    if (n % 1 === 0) return false;
+  }
+  return true;
+}
+
+const isPrimeMemo = memorize(isPrime);
+
+const N = 1000;
+
+for (let i = 2; i <= N; i++) {
+  isPrimeMemo(i);
+}
+
+for (let i = 2; i + 2 <= N; i++) {
+  if (isPrimeMemo(i) && isPrimeMemo(i + 2)) console.log(i + "," + (i + 2));
+}
+
+// 피보나치
+
+const memoFibonacci = memorize(function (num) {
+  if (x < 2) return x;
+  return memoFibonacci(x - 1) + memoFibonacci(x - 2);
+});
+
+for (let i = 0; i < 100; i++) {
+  console.log(memoFibonacci(i));
+}
+```
+
 2. 함수를 결과로 반환하기
 
 일반적으로 생각할 수 있는 글자 바꾸기 함수. 문제 없이 동작은 하지만 재사용이 어렵다.
@@ -723,7 +771,7 @@ const happify = function (text) {
 console.log(happify("The Baby Boomers just look the other way."));
 ```
 
-함수 합성
+**함수 합성**
 
 ```javascript
 // 예제 1
@@ -740,7 +788,7 @@ oldPeople("The Millenials are always up to something.");
 happify("The Baby Boomers just look the other way.");
 ```
 
-[11higherOrderFunction](11higherOrderFunction.js)
+[11higherOrderFunction 예제2](11higherOrderFunction.js)
 
 ```javascript
 // 예제 2
@@ -770,3 +818,43 @@ console.log(three(3));
 console.log(sumFive(5));
 console.log(square(sumFive(5)));
 ```
+
+3. 커링
+
+[Curring In Javascript](https://dev.to/spukas/curring-in-javascript-1o45)
+
+인수를 두 개 이상 받는 함수를 분해해서 인수가 하나인 함수의 중첩 함수로 변환하는 작업을 말한다.
+
+**보통 더하기를 한다고 하면 작성하는 함수**
+
+```javascript
+function add(a, b) {
+  return a + b;
+}
+
+console.log(add(2, 3));
+```
+
+**커링**
+
+[12curring 예제1](./12curring.js)
+
+```javascript
+function curriedAdd(a) {
+  return function (b) {
+    return a + b;
+  };
+}
+
+const sum2 = curriedAdd(2);
+
+console.log(sum2(3));
+```
+
+어디에서 유용할까?
+
+1. 같은 인수를 넘기는 것을 피하기 위해서
+2. make function compositions(함수 다발(??) 만들기)
+3. 상태 유지
+
+## 콜백 함수
