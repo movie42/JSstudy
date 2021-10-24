@@ -3,10 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
   </head>
   <body>
@@ -22,7 +19,7 @@
         { id: 4, name: "PJ", age: 10 },
         { id: 5, name: "JE", age: 27 },
         { id: 6, name: "JM", age: 40 },
-        { id: 6, name: "HI", age: 24 }
+        { id: 6, name: "HI", age: 24 },
       ];
 
       //   const tempUsers = [];
@@ -111,18 +108,18 @@
         logLength(
           map(
             filter(users, (user) => user.age < 30),
-            bvalue("age")
-          )
-        )
+            bvalue("age"),
+          ),
+        ),
       );
 
       console.log(
         logLength(
           map(
             filter(users, (user) => user.age >= 30),
-            bvalue("name")
-          )
-        )
+            bvalue("name"),
+          ),
+        ),
       );
     </script>
 
@@ -132,9 +129,9 @@
         logLength(
           map(
             filter(users, (user) => user.age < 30),
-            (user) => user.age
-          )
-        )
+            (user) => user.age,
+          ),
+        ),
       );
 
       const under30 = (user) => user.age < 30;
@@ -162,6 +159,89 @@
 
       console.log(logLength(ages(filter(users, under30))));
       console.log(logLength(names(filter(users, over30))));
+    </script>
+
+    <script>
+      // 무조건 list.length만큼 실행된다.
+      // 동일 조건 값이 두개 이상이면 전부 다 찾는다.
+      console.log(filter(users, (user) => user.id === 1));
+
+      // 효율적이지만 재사용이 불가능하다.
+      let user;
+      for (let i = 0, len = users.length; i < len; i++) {
+        if (users[i].id === 3) {
+          user = users[i];
+          break;
+        }
+      }
+      console.log(user);
+
+      // 재사용 가능하게 만들어보기
+      // 깔끔하지만 조건에 따라 함수를 다시 만들어야한다.
+      function findById(list, id) {
+        for (let i = 0, len = list.length; i < len; i++) {
+          if (list[i].id === id) return list[i];
+        }
+      }
+
+      function findByName(list, name) {
+        for (let i = 0, len = list.length; i < len; i++) {
+          if (list[i].name === name) return list[i];
+        }
+      }
+      console.log(findById(users, 2));
+      console.log(findByName(users, "HA"));
+
+      // 인자 늘려서 중복 피하기
+
+      function findBy(list, key, val) {
+        for (let i = 0, len = list.length; i < len; i++) {
+          if (list[i][key] === val) return list[i];
+        }
+      }
+
+      console.log(findBy(users, "id", 3));
+
+      // findBy로 안되는 경우
+
+      /*key가 아니라 메서드로 얻어야하는 경우
+        두가지 이상의 조건이 필요한 경우
+        ===이 아닌 다른 조건으로 찾고자 할 때,
+      */
+
+      function User(id, name, age) {
+        this.getId = function () {
+          return id;
+        };
+        this.getName = function () {
+          return name;
+        };
+        this.getAge = function () {
+          return age;
+        };
+      }
+
+      const users2 = [
+        new User(1, "ID", 32),
+        new User(2, "HA", 12),
+        new User(3, "DA", 46),
+        new User(4, "TA", 34),
+        new User(5, "PA", 90),
+        new User(6, "KA", 5),
+      ];
+
+      console.log(findBy("age", users2, 12));
+
+      function find(list, predicate) {
+        for (let i = 0, len = list.length; i < len; i++) {
+          if (predicate(list[i])) return list[i];
+        }
+      }
+
+      console.log(find(users2, (user) => user.getAge() === 12).getName());
+      console.log(find(users, (user) => user.name.indexOf("H") !== -1));
+      console.log(find(users, (user) => user.age === 25 && user.name === "HA"));
+      console.log(find(users2, (user) => user.getAge() < 30).getAge());
     </script>
   </body>
 </html>
