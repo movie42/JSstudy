@@ -232,6 +232,7 @@
 
       console.log(findBy("age", users2, 12));
 
+      // 값에서 함수로 넘기면 다양한 것들이 가능해진다.
       function find(list, predicate) {
         for (let i = 0, len = list.length; i < len; i++) {
           if (predicate(list[i])) return list[i];
@@ -242,6 +243,184 @@
       console.log(find(users, (user) => user.name.indexOf("H") !== -1));
       console.log(find(users, (user) => user.age === 25 && user.name === "HA"));
       console.log(find(users2, (user) => user.getAge() < 30).getAge());
+    </script>
+
+    <script>
+      console.log(
+        map(
+          filter(users, (user) => user.age >= 30),
+          (user) => user.name,
+        ),
+      );
+
+      console.log(
+        map(
+          filter(users2, (user) => user.getAge() <= 30),
+          (user) => user.getName(),
+        ),
+      );
+    </script>
+
+    함수를 만드는 함수와 find, filter 조합하기
+    <script>
+      function bmatch1(key, val) {
+        return function (obj) {
+          return obj[key] === val;
+        };
+      }
+
+      console.log(find(users, bmatch1("id", 1)));
+      console.log(find(users, bmatch1("name", "HA")));
+      console.log(find(users, bmatch1("age", 10)));
+
+      console.log(filter(users, bmatch1("age", 32)));
+    </script>
+
+    <script>
+      function object(key, val) {
+        const obj = {};
+        obj[key] = val;
+        return obj;
+      }
+
+      function match(obj, obj2) {
+        for (let key in obj2) {
+          if (obj[key] !== obj2[key]) return false;
+        }
+        return true;
+      }
+
+      function bmatch(obj2, val) {
+        if (arguments.length === 2) obj2 = object(obj2, val);
+        return function (obj) {
+          return match(obj, obj2);
+        };
+      }
+
+      console.log(
+        match(find(users, bmatch("id", 2)), find(users, bmatch("name", "HA"))),
+      );
+
+      console.log(find(users, (user) => user.age === 25 && user.name === "HA"));
+      console.log(find(users, bmatch({ name: "PJ" })));
+    </script>
+
+    고차함수 함수를 인자로 받거나 함수를 리턴하는 함수, 또는 둘다 하는 함수.
+    <script>
+      // Underscore.js에 가깝게 map, filter, find, findIndex 고쳐보기
+      const _ = {};
+      _.map = function (list, iteratee) {
+        const newList = [];
+        for (let i = 0, len = list.length; i < len; i++) {
+          newList.push(iteratee(list[i], i, list));
+        }
+        return newList;
+      };
+      _.filter = function (list, predicate) {
+        const newList = [];
+
+        for (let i = 0, len = list.length; i < len; i++) {
+          if (predicate(list[i], i, list)) newList.push(list[i]);
+        }
+        return newList;
+      };
+      _.find = function (list, predicate) {
+        for (let i = 0, len = list.length; i < len; i++) {
+          if (predicate(list[i], i, list)) return list[i];
+        }
+      };
+      _.findIndex = function (list, predicate) {
+        for (let i = 0, len = list.length; i < len; i++) {
+          if (predicate(list[i], i, list)) return i;
+        }
+        return -1;
+      };
+
+      // 사용 예
+      console.log(
+        _.filter([1, 2, 3, 4], function (val, idx) {
+          return idx > 1;
+        }),
+      );
+      console.log(
+        _.filter([1, 2, 3, 4], function (val, idx) {
+          return idx % 2 === 0;
+        }),
+      );
+    </script>
+
+    identity
+
+    <script>
+      _.identity = function (val) {
+        return val;
+      };
+
+      const a = 10;
+
+      console.log(_.identity(a));
+
+      console.log(
+        _.filter([1, 0, false, true, "", "F", null, undefined], _.identity),
+      );
+    </script>
+
+    some, every 만들어보기
+    <script>
+      _.some = function (list) {
+        return !!_.find(list, _.identity);
+      };
+
+      // filter를 사용했기 때문에 항상 루프를 끝까지 돈다.
+      _.every = function (list) {
+        return _.filter(list, _.identity).length === list.length;
+      };
+
+      console.log(_.some([0, null, 2]));
+      console.log(_.every([0, null, 2]));
+    </script>
+
+    연산자 대신 함수로
+
+    <script>
+      // not, beq
+      function not(val) {
+        return !val;
+      }
+      function beq(a) {
+        return function (b) {
+          return a === b;
+        };
+      }
+
+      // not, beq를 some과 every와 함께 사용하기
+      _.some = function (list) {
+        return !!_.find(list, _.identity);
+      };
+      _.every = function (list) {
+        return beq(-1)(_.findIndex(list, not));
+      };
+    </script>
+
+    <div id="user-list"></div>
+    <script>
+      // 예제와 다르게 바닐라 자바스크립트로 실행했고, post함수를 사용하지 않고 그냥 alert를 return 했다.
+      const userList = document.querySelector("#user-list");
+
+      userList.append(
+        ..._.map(users, function (user) {
+          let button = document.createElement("button");
+          button.innerText = user.name;
+          button.addEventListener("click", function () {
+            if (confirm(user.name + "님을 팔로잉 하실래요?")) follow(user);
+          });
+          return button;
+        }),
+      );
+
+      function follow(user) {
+        alert("이제" + user.name + "님의 소식을 볼 수 있습니다.");
+      }
     </script>
   </body>
 </html>
