@@ -1,12 +1,24 @@
 # FP(Functional Programing)
 
 [자바스크립트 함수 이론](../javascript_theory/7function/function.md)에서 건너왔다.
+
+## 목적
+
 중첩 함수, 클로저, 고차함수 등의 자바스크립트 함수 이론을 공부했다면 함수형 프로그래밍을 공부하면서 실용적으로 사용해보자.
 
-1. 함수형 프로그래밍이 뭘까?
+내가 함수형 프로그래밍이라는 것을 알게 된것은 두 가지 영상을 보고나서 알게 되었다.
 
-내가 함수형 프로그래밍이라는 것을 알게 된것은 두가지 영상을 보고나서 알게 되었다.
+> [JSConf : Javascript로 함수형 프로그래밍 배우기 - Anjana Vakil](https://www.youtube.com/watch?v=e-5obm1G_FY)  
+> [naver D2 :함수형 프로그래밍과 ES6+](https://www.youtube.com/watch?v=4sO0aWTd3yc)
 
-[JSConf : Javascript로 함수형 프로그래밍 배우기 - Anjana Vakil](https://www.youtube.com/watch?v=e-5obm1G_FY)
+그동안 코드의 재사용성에 대해서 별로 중요하게 생각하지 않았는데, 아주 소규모의 홈페이지를 만들어보면서 남들이 "레거시"라고 부를만한 수준의 이상한 코드를 마구 짜기 시작했다. 사실 나 편하자고 코드를 만든건데 수정을 할때 코드를 다시 읽고 이해해야하는 어처구니 없는 상황이 발생했다.
 
-[naver D2 :함수형 프로그래밍과 ES6+](https://www.youtube.com/watch?v=4sO0aWTd3yc)
+함수형 자바스크립트를 공부하는 이유는 두 가지다.
+
+1. 자바스크립트 함수에 대해서 공부하면서 타고 타고 들어간 수업들이 마지막에 FP에 대해서 말하고 있었다. 그래서 FP에 대해서 공부하면서 내가 배운 것을 실용적으로 사용하고 싶었다.
+2. 코드를 아름답게 작성하고 싶었다. 특히 재사용성을 높이고 싶었다. [naver D2 :함수형 프로그래밍과 ES6+](https://www.youtube.com/watch?v=4sO0aWTd3yc)을 보면서 가능할 수 있겠다고 생각했지만 유인동(강사)님은 5년동안 죽어라고 팠다고 했다.
+
+## [함수형 자바스크립트 소개](./ch1/introduce_fp.md)
+
+> 날짜 : 2021.10.24 ~
+> 책 : [함수형 자바스크립트 프로그래밍](http://www.yes24.com/Product/Goods/56885507)

@@ -40,7 +40,6 @@
       - [이터레이션](#이터레이션)
       - [이터네리터](#이터네리터)
     - [제너레이터](#제너레이터)
-    - [템플릿 리터럴의 태그 함수](#템플릿-리터럴의-태그-함수)
   - [여기까지 마쳤다면](#여기까지-마쳤다면)
 
 ## 함수를 정의하는 방법
@@ -1003,9 +1002,30 @@ console.log(iter.next());
 - yield는 프로그램이 일시적으로 정지하는 위치다.
 - 이터레이터의 next는 실행상태로 바꾼다.
 - 이터레이터 객체는 처리를 재개할 수 있도록 제너레이터 함수의 내부 상태를 모두 저장한다.
+- yield는 return처럼 사용할 수 있다.
 
-### 템플릿 리터럴의 태그 함수
+- 제너레이터는 return으로 종료한다.
+- 예외는 throw로 처리한다.
+
+```javascript
+function* idMaker() {
+  let count = 0;
+  while (true) {
+    try {
+      yield count++;
+    } catch (e) {
+      console.log("오류");
+    }
+  }
+}
+
+const iter = idMaker();
+console.log(iter.next());
+iter.throw(new Error("error"));
+```
+
+- yield\* 반복 가능한 객체에 위임이 가능하다.
 
 ## 여기까지 마쳤다면
 
-[함수형 자바스크립트](../javascript_FOP/README.md)
+[함수형 자바스크립트](../../javascript_FOP/README.md)

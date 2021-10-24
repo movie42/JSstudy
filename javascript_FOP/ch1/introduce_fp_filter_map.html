@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Document</title>
+  </head>
+  <body>
+    # 회원 목록 중 여러명 찾기 - for문으로 필터링하기
+
+    <script>
+      // 필터링을 하면 보통 이런식으로 필터링을 하게 된다.
+      // 함수형 자바스크립트 프로그래밍 p.4 1-5 for문으로 필터링하기, 1-6
+      const users = [
+        { id: 1, name: "ID", age: 32 },
+        { id: 2, name: "HA", age: 25 },
+        { id: 3, name: "BJ", age: 32 },
+        { id: 4, name: "PJ", age: 10 },
+        { id: 5, name: "JE", age: 27 },
+        { id: 6, name: "JM", age: 40 },
+        { id: 6, name: "HI", age: 24 }
+      ];
+
+      //   const tempUsers = [];
+      //   for (let i = 0, len = users.length; i < len; i++) {
+      //     if (users[i].age < 30) tempUsers.push(users[i]);
+      //   }
+      //   console.log(tempUsers.length);
+
+      //   const ages = [];
+      //   for (let i = 0, len = userUnder30.length; i < len; i++) {
+      //     ages.push(userUnder30[i].age);
+      //   }
+      //   console.log(ages);
+
+      //   const names = [];
+      //   for (let i = 0, len = userOver30.length; i < len; i++) {
+      //     names.push(userOver30[i].name);
+      //   }
+      //   console.log(names);
+
+      // 바꾼 코드
+      function filter(list, predicate) {
+        const newList = [];
+        for (let i = 0, len = list.length; i < len; i++) {
+          if (predicate(list[i])) newList.push(list[i]);
+        }
+        return newList;
+      }
+
+      function map(list, iteratee) {
+        const newList = [];
+        for (let i = 0, len = list.length; i < len; i++) {
+          newList.push(iteratee(list[i]));
+        }
+        return newList;
+      }
+
+      function logLength(value) {
+        console.log(value.length);
+        return value;
+      }
+
+      //   console.log(
+      //     logLength(
+      //       map(
+      //         filter(users, function (user) {
+      //           return user.age < 30;
+      //         }),
+      //         function (user) {
+      //           return user.age;
+      //         }
+      //       )
+      //     )
+      //   );
+
+      //   console.log(
+      //     logLength(
+      //       map(
+      //         filter(users, function (user) {
+      //           return user.age >= 30;
+      //         }),
+      //         function (user) {
+      //           return user.name;
+      //         }
+      //       )
+      //     )
+      //   );
+    </script>
+
+    <script>
+      function addMaker(a) {
+        return function (b) {
+          return a + b;
+        };
+      }
+
+      function bvalue(key) {
+        return function (obj) {
+          return obj[key];
+        };
+      }
+
+      bvalue("a")({ a: "hi", b: "how are you" });
+
+      console.log(
+        logLength(
+          map(
+            filter(users, (user) => user.age < 30),
+            bvalue("age")
+          )
+        )
+      );
+
+      console.log(
+        logLength(
+          map(
+            filter(users, (user) => user.age >= 30),
+            bvalue("name")
+          )
+        )
+      );
+    </script>
+
+    화살표 함수와 함께 사용하기
+    <script>
+      console.log(
+        logLength(
+          map(
+            filter(users, (user) => user.age < 30),
+            (user) => user.age
+          )
+        )
+      );
+
+      const under30 = (user) => user.age < 30;
+      const over30 = (user) => user.age >= 30;
+
+      // console.log(
+      //   logLength(map(filter(users, under30), (user) => user.age))
+      // );
+      // console.log(
+      //   logLength(map(filter(users, over30), (user) => user.name))
+      // );
+
+      //   const ages = (list) => map(list, (v) => v.age);
+      //   const names = (list) => map(list, (v) => v.name);
+
+      //   console.log(logLength(ages(filter(users, under30))));
+      //   console.log(logLength(names(filter(users, over30))));
+
+      const bvalues = (key) => {
+        const value = bvalue(key);
+        return (list) => map(list, value);
+      };
+      const ages = bvalues("age");
+      const names = bvalues("name");
+
+      console.log(logLength(ages(filter(users, under30))));
+      console.log(logLength(names(filter(users, over30))));
+    </script>
+  </body>
+</html>
