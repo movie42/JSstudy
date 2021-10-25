@@ -350,7 +350,7 @@ var user = {
   name: "programer",
   sayHi: function () {
     console.log(`hi, ${this.name}`);
-  }
+  },
 };
 ```
 
@@ -548,7 +548,7 @@ function Person(name, age) {
     },
     setAge: function (x) {
       _age = x;
-    }
+    },
   };
 }
 
@@ -744,8 +744,7 @@ for (let i = 2; i <= N; i++) {
 }
 
 for (let i = 2; i + 2 <= N; i++) {
-  if (isPrimeMemo(i) && isPrimeMemo(i + 2))
-    console.log(i + "," + (i + 2));
+  if (isPrimeMemo(i) && isPrimeMemo(i + 2)) console.log(i + "," + (i + 2));
 }
 
 // 피보나치
@@ -906,6 +905,7 @@ const user = (name, age) => ({ name, age });
 - 함수 리터럴로 정의한 함수의 this값은 함수를 호출될때 결정된다.
 - 화살표 함수는 함수를 정의할 때 this값이 결정된다.
 - 이벤트 리스터의 값이 window로 고정되는 것도 이와 같은 이유일까?
+- 아직 찾지 못한건지 잘 모르겠지만 두권의 책에서는 this를 이벤트 리스너에서 사용하지 않을 것을 권장만 한다.
 
 ```javascript
 const obj = {
@@ -917,7 +917,7 @@ const obj = {
     f();
     const a = () => console.log(thi);
     a();
-  }
+  },
 };
 obj.say();
 ```

@@ -422,5 +422,22 @@
         alert("이제" + user.name + "님의 소식을 볼 수 있습니다.");
       }
     </script>
+
+    <ul class="u_list">
+      <li>list1</li>
+      <li>list2</li>
+      <li>list3</li>
+    </ul>
+
+    <script>
+      const list = document.querySelectorAll(".u_list li");
+
+      const onClickEvent = () => console.log(this);
+      _.map(list, (value) => {
+        value.addEventListener("click", function () {
+          console.log(this);
+        });
+      });
+    </script>
   </body>
 </html>
