@@ -64,6 +64,36 @@
       // getPrototypeOf()
 
       console.log(Object.getPrototypeOf(obj));
+
+      function User(name, age) {
+        this.name = name;
+        this.age = age;
+      }
+
+      User.prototype = {
+        checker: function () {
+          return `${this.name}은 ${this.age}입니다.`;
+        }
+      };
+
+      const user3 = new User("ko", 23);
+
+      console.log(user3 instanceof User);
+
+      function Circle(center, radius) {
+        this.center = center;
+        this.radius = radius;
+      }
+
+      Circle.prototype = {
+        area: function () {
+          return Math.PI * this.radius * this.radius;
+        }
+      };
+
+      const c = new Circle({ x: 0, y: 0 }, 2.0);
+      console.log(c.constructor);
+      console.log(c instanceof Circle);
     </script>
   </body>
 </html>

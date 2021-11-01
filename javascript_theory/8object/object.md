@@ -143,3 +143,94 @@ console.log(Object.getPrototypeOf(obj));
 더 읽어보기
 
 [상속과 프로토타입](https://developer.mozilla.org/ko/docs/Web/JavaScript/Inheritance_and_the_prototype_chain)
+
+### new 연산자의 역할
+
+생성자를 new로 호출해서 인스ㅓㄴ스를 생성하면 내부적으로 어떤 작업을 할까?
+
+```javascript
+// p.347
+function Circle(center, radius) {
+  this.center = center;
+  this.radius = radius;
+}
+
+Circle.prototype.area = function () {
+  return Math.PI * this.radius * this.radius;
+};
+
+// new 연산자 사용해서 인스턴스 생성하기
+const c = new Circle({ x: 0, y: 0 }, 2.0);
+
+// 내부적으로는 어떤일이?
+// 1. 빈 객체 생성
+
+var newObj = {};
+
+// 2. Circle.prototype을 생성된 객체의 프로토타입으로 설정
+// 이때 Circle.prototype이 가리키는 값이 객체가 아니라면 Object.prototype을 프로토타입으로 설정한다.
+
+newObj.__proto__ = Circle.prototype;
+
+// 3.Circle 생성자 실행하고 newObj를 초기화한다. 이때 this는 1로 생성한 객체로 설정한다.인수는 new 연산자와 함께 사용한 인수를 그대로 사용
+
+Circle.apply(newObj, arguments);
+
+// 4. 완성된 객체를 결과값으로 반환
+
+return newObj;
+```
+
+2에서 prototype 프로퍼티 값을 인스턴스의 \_\_proto\_\_ 프로퍼티 값으로 대입하여 인스턴스의 프로토타입 체인이 정의되고, 생성자로 생성한 모든 인스턴스가 생성자의 프로토타입 객체의 프로퍼티를 사용할 수 있게 된다.
+
+### 프로토타입 객체의 프로퍼티
+
+함수를 정의하면 함수 객체는 기본적으로 prototype 프로퍼티를 갖는다. 이 prototype 프로퍼티는 프로토타입 객체를 가리키고, 이 객체는 constructor 프로퍼티와 내부 \[\[Prototype\]\](\_\_proto\_\_)를 가지고 있다.
+
+#### constructor 프로퍼티
+
+constructor 프로퍼티는 함수 객체의 참조를 값으로 가지고 있다.
+
+```javascript
+function C() {}
+console.log(C.prototype.constructor);
+```
+
+- 생성자의 prototype 프로퍼티가 '프로토타입 객체'를 가리킨다. 프로토타입 객체의 constructor 프로퍼티가 생성자를 가리킨다.
+- 생성자로 생성한 인스턴스는 생성 될 때의 프로토타입 객체의 참조만 가지고 있을 뿐, 생성자와는 직접적인 연결고리가 없다.
+
+```
+C =  prototype  => C.prototype
+  <= constructor =
+
+C = new로 생성 => F의 인스턴스 = [[Prototype]] 또는 __proto__ => C.prototype
+```
+
+- 인스턴스는 프로토타입에서 constructor를 상속받기 때문에 이 값을 확인하면 어떤 생성자로 생성한것인지 알 수있다.
+
+#### 내부 프로퍼티 \[\[Prototype]]
+
+- 함수 객체가 가진 프로토타입 객체의 내부 프로퍼티 \[\[Prototype]]는 기본적으로 Object.prototype을 가리킨다. 그래서 생성자로 생성한 인스턴스에서 Object.prototype의 프로퍼티를 사용할 수 있다.
+
+#### 프로토타입 객체의 교체 및 constructor 프로퍼티
+
+- 프로퍼티만 정의되어있는 새로운 객체를 prototype 프로퍼티 값으로 대입하면 인스턴스와 생성자 사이의 연결고리가 끊어지기 때문에 constructor 프로퍼티를 정의하고, 그 프로퍼티에 생성자의 참조를 대입해야한다.
+
+```javascript
+function User(name, age) {
+  this.name = name;
+  this.age = age;
+}
+
+User.prototype = {
+  address: function () {
+    return `${this.name}은 ${this.age}입니다.`;
+  }
+};
+```
+
+더 읽어보기
+
+- 책보다 이 문서가 더 잘 이해됨...
+
+[함수의 prototype 프로퍼티](https://ko.javascript.info/function-prototype#ref-766)
