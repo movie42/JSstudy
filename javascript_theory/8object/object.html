@@ -35,6 +35,35 @@
 
       const user = new F();
       console.log(user.prop("jo", 22));
+
+      //prototype
+      const share = {};
+      // console.log(share.__proto__);
+
+      const objA = {
+        name: "JAVA",
+        outPut: function () {
+          console.log(this.name);
+        }
+      };
+      const objB = {
+        name: "SCRIPT"
+      };
+
+      objB.__proto__ = objA;
+      // objB.outPut();
+
+      const objC = {};
+      objC.__proto__ = objB;
+      // objC.outPut();
+
+      // console.log(objA.__proto__);
+      // console.log(objB.__proto__);
+      // console.log(objC.__proto__);
+
+      // getPrototypeOf()
+
+      console.log(Object.getPrototypeOf(obj));
     </script>
   </body>
 </html>
