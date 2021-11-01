@@ -14,3 +14,11 @@ users 목록에서 for와 if로 조건부 찾기를 했던 코드를 map, filter
 함수형 프로그래밍에서 저자가 반복해서 강조하는 것이 있는데, 비동기 상황에서 함수형 자바스크립트가 유용하다고 말한다. 네이버 D2에 있는 동영상에서도 보면 비동기 상황에서 Promise를 값으로 보고 비동기 상황에서 사용하는 것을 볼 수 있는데 그냥 맹목적으로 async/await만 쓰던 나에게는 생소하기도 했고 신기하기도 했다.
 
 결국 1, 2장을 쭉 보면서 그동안 함수에 대해서 배웠던 것을 다시 복습하고 있다. 자바스크립트에서 함수가 중요하다는 말은 들었지만 그냥 반복적인 일을 할 때, 재사용할 수 있다는 것만 어렴풋이 알뿐이었다. 하지만 함수형 자바스크립트 프로그래밍은 읽을 수록 놀랍다. 내가 만든 프로젝트 코드를 빨리 다 바꿔봐야겠다.
+
+[더 읽어보기 JavaScript : Scope 이해](https://www.nextree.co.kr/p7363/)
+
+[실행 컨텍스트](https://poiemaweb.com/js-execution-context)
+
+[태스크 큐와 이벤트 루프](https://velog.io/@yejineee/%EC%9D%B4%EB%B2%A4%ED%8A%B8-%EB%A3%A8%ED%94%84%EC%99%80-%ED%83%9C%EC%8A%A4%ED%81%AC-%ED%81%90-%EB%A7%88%EC%9D%B4%ED%81%AC%EB%A1%9C-%ED%83%9C%EC%8A%A4%ED%81%AC-%EB%A7%A4%ED%81%AC%EB%A1%9C-%ED%83%9C%EC%8A%A4%ED%81%AC-g6f0joxx)
+
+[마이크로 태스크](https://ko.javascript.info/microtask-queue)

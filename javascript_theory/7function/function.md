@@ -350,7 +350,7 @@ var user = {
   name: "programer",
   sayHi: function () {
     console.log(`hi, ${this.name}`);
-  },
+  }
 };
 ```
 
@@ -468,6 +468,7 @@ f_LexicalEnvironment:{
 }
 ```
 
+
 ### 가비지 컬렉션
 
 사용하지 않는 객체의 메모리 영역은 가비지 컬렉터가 자동으로 해제한다. 사용하지 않는 객체는 다른 객체의 프로퍼티와 변수가 참조하지 않는 객체를 말한다.
@@ -548,7 +549,7 @@ function Person(name, age) {
     },
     setAge: function (x) {
       _age = x;
-    },
+    }
   };
 }
 
@@ -744,7 +745,8 @@ for (let i = 2; i <= N; i++) {
 }
 
 for (let i = 2; i + 2 <= N; i++) {
-  if (isPrimeMemo(i) && isPrimeMemo(i + 2)) console.log(i + "," + (i + 2));
+  if (isPrimeMemo(i) && isPrimeMemo(i + 2))
+    console.log(i + "," + (i + 2));
 }
 
 // 피보나치
@@ -917,7 +919,7 @@ const obj = {
     f();
     const a = () => console.log(thi);
     a();
-  },
+  }
 };
 obj.say();
 ```

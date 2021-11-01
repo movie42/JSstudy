@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      //  prototype
+      function F() {}
+      console.log(F.prototype);
+
+      F.prototype.prop = function (name, age) {
+        return { name, age };
+      };
+
+      // 수정이 불가능 하다는 것은 이렇게 안된다는 이야기?
+      //   F.prototype.prop = function (name, address) {
+      //     return { name, age };
+      //   };
+
+      const obj = new F();
+      console.log(obj.prop("ko", 23));
+
+      obj.prop = function (address) {
+        return { address };
+      };
+
+      console.log(obj.prop("KOrea"));
+
+      const user = new F();
+      console.log(user.prop("jo", 22));
+    </script>
+  </body>
+</html>
