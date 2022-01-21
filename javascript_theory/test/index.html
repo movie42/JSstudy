@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <ul id="result"></ul>
+    <!-- <script type="module" src="main.js"></script> -->
+    <script>
+      (function () {
+        let queue = [];
+        let paused = false;
+        let results;
+
+        this.test = function (name, fn) {
+          queue.push(function () {
+            results = document.getElementById("result");
+            results = assert(true, name).appendChild(
+              document.createElement("ul"),
+            );
+            fn();
+          });
+          runTest();
+        };
+        this.pause = function () {
+          paused = true;
+        };
+        this.resume = function () {
+          paused = false;
+          setTimeout(runTest, 1);
+        };
+        function runTest() {
+          if (!paused && queue.length) {
+            queue.shift()();
+            if (!paused) {
+              resume();
+            }
+          }
+        }
+
+        this.assert = function assert(value, desc) {
+          let li = document.createElement("li");
+          li.className == value ? "pass" : "fail";
+          li.appendChild(document.createTextNode(desc));
+          results.appendChild(li);
+          if (!value) {
+            li.parentNode.parentNode.className = "fail";
+          }
+          return li;
+        };
+      })();
+
+      window.onload = function () {
+        test("Async Test #1", function () {
+          pause();
+          setTimeout(function () {
+            assert(true, "First test completed");
+            resume();
+          }, 1000);
+        });
+
+        test("Async Test #2", function () {
+          pause();
+          setTimeout(function () {
+            assert(true, "Second test completed");
+            resume();
+          }, 1000);
+        });
+      };
+    </script>
+  </body>
+</html>
