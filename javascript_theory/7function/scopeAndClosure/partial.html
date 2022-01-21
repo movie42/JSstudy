@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Partial</title>
+  </head>
+  <body>
+    <script>
+      //   const elements = "val1,val2,val3".split(/,\s*/);
+
+      Function.prototype.curry = function () {
+        let fn = this;
+        let args = Array.prototype.slice.call(arguments);
+        return function () {
+          return fn.apply(
+            this,
+            args.concat(Array.prototype.slice.call(arguments)),
+          );
+        };
+      };
+
+      Function.prototype.partial = function () {
+        let fn = this;
+        let args = Array.prototype.slice.call(arguments);
+
+        return function () {
+          let arg = 0;
+          for (let i = 0; i < args.length && arg < arguments.length; i++) {
+            if (args[i] === undefined) {
+              args[i] = arguments[arg++];
+            }
+          }
+          return fn.apply(this, args);
+        };
+      };
+
+      const delay = setTimeout.partial(undefined, 10);
+
+      delay(console.log("안녕"));
+      delay(console.log("잘가"));
+
+      //   String.prototype.csv = String.prototype.split.parial(/,\s*/);
+
+      //   let result = "hyun, su, ko".csv();
+    </script>
+  </body>
+</html>

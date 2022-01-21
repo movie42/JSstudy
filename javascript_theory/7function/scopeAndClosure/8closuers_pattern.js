@@ -1,5 +1,5 @@
 // 여러개의 내부 상태와 메서드를 가진 클로저
-console.log("여러개의 내부 상태와 메서드를 가진 클로저");
+// console.log("여러개의 내부 상태와 메서드를 가진 클로저");
 
 function Person(name, age) {
   let _name = name;
@@ -13,18 +13,18 @@ function Person(name, age) {
     },
     setAge: function (x) {
       _age = x;
-    }
+    },
   };
 }
 
-const person = Person("Js", 18);
-console.log(person.getName());
-console.log(person.getAge());
-person.setAge(20);
-console.log(person.getAge());
+// const person = Person("Js", 18);
+// console.log(person.getName());
+// console.log(person.getAge());
+// person.setAge(20);
+// console.log(person.getAge());
 
 // 함수 팩토리
-console.log("함수 팩토리");
+// console.log("함수 팩토리");
 
 function makeMultiplier(x) {
   return function (y) {
@@ -35,8 +35,8 @@ function makeMultiplier(x) {
 const multi2 = makeMultiplier(2);
 const multi10 = makeMultiplier(10);
 
-console.log(multi2(3));
-console.log(multi10(3));
+// console.log(multi2(3));
+// console.log(multi10(3));
 
 //모듈 패턴
 
@@ -58,5 +58,26 @@ const Module = {};
   };
 })(Module);
 
-Module.setName("Gilgamesh‎");
-Module.showName();
+// Module.setName("Gilgamesh");
+// Module.showName();
+
+let outerValue = "outer";
+let later;
+
+function outerFunction() {
+  let innerValue = "inner";
+
+  function innerFunction(paramValue) {
+    console.log("outerValue", outerValue);
+    console.log("innerValue", innerValue);
+    console.log("paramValue", paramValue);
+    console.log(tooLate);
+  }
+
+  later = innerFunction;
+}
+
+let tooLate = "toolate";
+
+console.log("outerFunction", outerFunction());
+console.log("later", later("closure"));

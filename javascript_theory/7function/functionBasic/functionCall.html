@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Function Call</title>
+  </head>
+  <body>
+    <ul id="result"></ul>
+    <script>
+      // 일반적인 함수 호출
+      function silent(a, b) {
+        console.log(this);
+        console.log(arguments);
+        console.log(a, b);
+      }
+
+      silent("gg", 2);
+
+      // 메서드 호출
+
+      const obj = {};
+
+      obj.whatever = function () {
+        console.log("whatever");
+        return "whatever";
+      };
+
+      obj.whatever();
+
+      // apply call
+
+      function juggle() {
+        let result = 0;
+        for (let n = 0; n < arguments.length; n++) {
+          result += arguments[n];
+        }
+        this.result = result;
+      }
+
+      const musa1 = {};
+      const musa2 = {};
+
+      juggle.apply(musa1, [1, 2, 3, 4]);
+      juggle.call(musa2, 1, 2, 3, 4);
+
+      assert(musa1.result === 10, "apply");
+      assert(musa2.result === 10, "call");
+      function assert(value, desc) {
+        let li = document.createElement("li");
+        li.className = value ? "pass" : "false";
+        li.appendChild(document.createTextNode(desc));
+        document.getElementById("result").appendChild(li);
+
+        li.className == "pass"
+          ? (li.style.color = "green")
+          : (li.style.color = "red");
+      }
+    </script>
+  </body>
+</html>

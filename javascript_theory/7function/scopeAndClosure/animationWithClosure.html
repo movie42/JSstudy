@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>animation with closure</title>
+    <style>
+      #box {
+        position: absolute;
+        border: 1px solid red;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="box">박스</div>
+
+    <script>
+      function animationIt(elemetId) {
+        const elem = document.getElementById(elemetId);
+        let tick = 0;
+
+        const timer = setInterval(function () {
+          if (tick < 100) {
+            elem.style.left = `${tick}px`;
+            elem.style.top = `${tick}px`;
+            tick++;
+          } else {
+            clearInterval(timer);
+          }
+        }, 10);
+      }
+
+      animationIt("box");
+    </script>
+  </body>
+</html>

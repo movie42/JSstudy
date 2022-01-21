@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Function Name Test</title>
+  </head>
+  <body>
+    <ul id="result"></ul>
+    <script>
+      function isNimble() {
+        return true;
+      }
+
+      assert(typeof isNimble === "function", "isNimble()은 정의되었습니다.");
+      assert(isNimble.name === "isNimble", "isNimble에는 이름이 있습니다.");
+
+      const canFly = function () {
+        return true;
+      };
+
+      assert(typeof canFly === "function", "canFly는 함수입니다.");
+      // 익명함수를 변수에 할당했기 때문에 이름이 없는 줄 알았는데 있다.
+      assert(canFly.name === "", "canFly에는 이름이 있습니다.");
+
+      window.isDeadly = function () {
+        return true;
+      };
+
+      assert(
+        typeof window.isDeadly === "function",
+        "isDeadly()가 정의되었습니다.",
+      );
+
+      function outer() {
+        assert(
+          typeof inner === "function",
+          "inner 함수가 정의된 위치 앞쪽에서 inner()는 유효합니다.",
+        );
+
+        function inner() {}
+
+        assert(typeof inner === "function", "inner()는 뒤에서도 유효합니다.");
+
+        assert(window.inner === undefined, "전역범위에서 inner는 없습니다.");
+      }
+
+      outer();
+
+      assert(window.inner === undefined, "전역범위에 없습니다.");
+
+      window.wieldsSword = function swingsSword() {
+        return true;
+      };
+
+      assert(
+        window.wieldsSword.name === "swingsSword",
+        "wieldsSword의 실재 이름은 swingsSword입니다.",
+      );
+
+      function assert(value, desc) {
+        let li = document.createElement("li");
+        li.className = value ? "pass" : "false";
+        li.appendChild(document.createTextNode(desc));
+        document.getElementById("result").appendChild(li);
+
+        li.className == "pass"
+          ? (li.style.color = "green")
+          : (li.style.color = "red");
+      }
+    </script>
+  </body>
+</html>
