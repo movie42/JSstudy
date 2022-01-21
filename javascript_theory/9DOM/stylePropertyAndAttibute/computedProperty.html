@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>get computed property</title>
+    <style>
+      div {
+        font-size: 1.8em;
+        border: 0 solid gold;
+      }
+    </style>
+  </head>
+  <body>
+    <div style="color: #000" title="styleSheet">스타일 시트로부터 가져오기</div>
+    <script type="text/javascript">
+      window.onload = () => {
+        const div = document.getElementsByTagName("div")[0];
+
+        function fetchComputecStyle(element, property) {
+          if (window.getComputedStyle) {
+            const computedStyles = window.getComputedStyle(element);
+
+            if (computedStyles) {
+              property = property.replace(/([A-Z])/g, `-$1`).toLowerCase();
+              return computedStyles.getPropertyValue(property);
+            }
+          } else if (element.currentStyle) {
+            property = property.replace(/-([a-z])/gi, function (all, letter) {
+              return letter.toUpperCase();
+            });
+            return element.currentStyle[property];
+          }
+        }
+
+        console.log(fetchComputecStyle(div, "font-size"));
+      };
+    </script>
+  </body>
+</html>

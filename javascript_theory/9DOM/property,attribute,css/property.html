@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>property</title>
+  </head>
+  <style></style>
+  <body>
+    <div id="testSubject"></div>
+
+    <script type="text/javascript">
+      (function () {
+        let translations = {
+          for: "htmlFor",
+          class: "className",
+          readonly: "readOnly",
+          maxlength: "maxLength",
+          cellspacing: "cellSpacing",
+          rowspan: "rowSpan",
+          colspan: "colSpan",
+          tabindex: "tabIndex",
+          cellpadding: "cellPadding",
+          usemap: "useMap",
+          frameborder: "frameBorder",
+          contenteditable: "contentEditable",
+        };
+
+        window.attr = function (element, name, value) {
+          let property = translations[name] || name;
+          let propertyExists = typeof element[property] !== "undefined";
+
+          if (typeof value !== "undefined") {
+            if (propertyExists) {
+              element[property] = value;
+            } else {
+              element.setAttribute(name, value);
+            }
+          }
+          return propertyExists
+            ? element[property]
+            : element.getAttribute(name);
+        };
+
+        let subject = document.getElementById("testSubject");
+        console.log(attr(subject, "id"));
+      })();
+    </script>
+  </body>
+</html>

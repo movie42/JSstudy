@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Type Property</title>
+  </head>
+  <body>
+    <form action="/" id="testForm"></form>
+    <script type="text/javascript">
+      window.onload = () => {
+        const input = document.createElement("input");
+        input.type = "text";
+        console.log(input.type === "text");
+
+        document.getElementById("testForm").appendChild(input);
+
+        input.type = "hidden";
+        console.log(input.type);
+      };
+    </script>
+  </body>
+</html>

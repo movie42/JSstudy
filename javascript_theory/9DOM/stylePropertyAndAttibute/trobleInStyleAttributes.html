@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Troble In Style Attributes</title>
+    <style>
+      div {
+        font-size: 1.8em;
+        border: 0 solid gold;
+      }
+    </style>
+  </head>
+  <body>
+    <div style="color: #000" title="styleSheet">스타일 시트로부터 가져오기</div>
+    <script type="text/javascript">
+      window.onload = () => {
+        const div = document.getElementsByTagName("div")[0];
+
+        console.log(div.style.color);
+        console.log(div.style.fontSize);
+        console.log(div.style.borderWidth);
+
+        div.style.borderWidth = "4px";
+        console.log(div.style.borderWidth);
+
+        function style(element, name, value) {
+          name = name.replace(/-([a-z])/gi, function (all, letter) {
+            return letter.toUpperCase();
+          });
+          if (typeof value !== "undefined") {
+            element.style[name] = value;
+          }
+
+          return element.style[name];
+        }
+
+        console.log(style(div, "color"));
+        console.log(style(div, "font-size"));
+      };
+    </script>
+  </body>
+</html>

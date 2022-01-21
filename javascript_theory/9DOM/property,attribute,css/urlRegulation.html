@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Url Regulation</title>
+  </head>
+  <body>
+    <a href="urlRegulation.html" id="testSubject">Self</a>
+    <script type="text/javascript">
+      const link = document.getElementById("testSubject");
+      const linkHref = link.getAttributeNode("href").nodeValue;
+      console.log(linkHref === "urlRegulation.html");
+      console.log(link.href === "urlRegulation.html");
+      console.log(link.getAttribute("href"));
+    </script>
+  </body>
+</html>
