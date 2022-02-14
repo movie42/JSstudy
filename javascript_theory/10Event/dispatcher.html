@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Event Context</title>
+  </head>
+  <body>
+    <div title="Click me">클릭하세요</div>
+    <div title="but only one">한번만</div>
+    <script type="text/javascript">
+      (function () {
+        const cache = {};
+        let guidCounter = 1;
+        let expando = `data ${new Date().getTime()}`;
+
+        this.getData = function (elem) {
+          let guid = elem[expando];
+
+          if (!guid) {
+            guid = elem[expando] = guidCounter++;
+            cache[guid] = {};
+          }
+          return cache[guid];
+        };
+
+        this.removeData = function (elem) {
+          const guid = elem[expando];
+          if (!guid) return;
+          delete cache[guid];
+          try {
+            delete elem[expando];
+          } catch (e) {
+            if (elem.removeAttribute) {
+              elem.removeAttribute(expando);
+            }
+          }
+        };
+
+        let nextGuid = 1;
+
+        this.addEvent = function (elem, type, fn) {
+          let data = this.getData(elem);
+
+          if (!data.handlers) data.handlers = {};
+
+          if (!data.handlers[type]) data.handlers[type] = [];
+
+          if (!fn.guid) fn.fuid = nextGuid++;
+
+          data.handlers[type].push(fn);
+
+          if (!data.dispatcher) {
+            data.disabled = false;
+            data.dispatcher = function (evnet) {
+              if (data.disabled) return;
+              event = fixEvent(event);
+
+              let handlers = data.handlers[event.type];
+
+              if (handlers) {
+                for (let n = 0; n < handlers.length; n++) {
+                  handlers[n].call(elem, event);
+                }
+              }
+            };
+          }
+          if (data.handlers[type].length == 1) {
+            if (document.addEventListener) {
+              elem.addEventListener(type, data.dispatcher, false);
+            }
+          }
+        };
+      })();
+    </script>
+  </body>
+</html>

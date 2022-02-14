@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Managing Event Handler</title>
+  </head>
+  <body>
+    <div title="power">POWER</div>
+    <div title="responsivility">responsivility</div>
+
+    <script type="text/javascript">
+      (function () {
+        const cache = {};
+        let guidCounter = 1;
+        let expando = `data ${new Date().getTime()}`;
+
+        this.getData = function (elem) {
+          let guid = elem[expando];
+
+          if (!guid) {
+            guid = elem[expando] = guidCounter++;
+            cache[guid] = {};
+          }
+          return cache[guid];
+        };
+
+        this.removeData = function (elem) {
+          const guid = elem[expando];
+          if (!guid) return;
+          delete cache[guid];
+          try {
+            delete elem[expando];
+          } catch (e) {
+            if (elem.removeAttribute) {
+              elem.removeAttribute(expando);
+            }
+          }
+        };
+      })();
+
+      const elems = document.getElementsByTagName("div");
+
+      for (let i = 0; i < elems.length; i++) {
+        getData(elems[i]).power = elems[i].title;
+      }
+ 
+      for (let i = 0; i < elems.length; i++) {
+        console.log(getData(elems[i]).power);
+      }
+    </script>
+  </body>
+</html>
