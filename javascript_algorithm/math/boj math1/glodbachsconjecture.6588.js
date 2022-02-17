@@ -1,7 +1,7 @@
-// https://www.acmicpc.net/problem/1929
+// https://www.acmicpc.net/problem/6588
 
 const path = require("path");
-const dirname = path.resolve("../inputData");
+const dirname = path.resolve("inputData");
 const vscode = dirname + "/input.txt";
 
 const back = "dev/stdin";
@@ -21,21 +21,21 @@ function isPrime(num) {
 }
 
 function solution(arr) {
-  arr.forEach((number) => {
-    let prime = [];
+  const maxNumber = Math.max(...arr);
 
-    for (let i = 1; i <= number; i++) {
-      prime[i - 1] = i;
-    }
-
-    for (let i = 2; i < number; i++) {
-      if (prime[i] === 0) continue;
-
-      for (let j = i + i; j < number; j += i) {
-        log(j);
+  const numbers = new Array(maxNumber + 1).fill(false);
+  for (let i = 2; i < maxNumber; i++) {
+    if (numbers[i] === false) {
+      for (let j = i * i; j <= maxNumber; j += i) {
+        numbers[j] = true;
       }
     }
-  });
+  }
+
+  for (let i = 0; i < arr.length; i++) {
+    const currentNumber = arr[i];
+    for (let j = 3; j < currentNumber; j += 2) {}
+  }
 }
 
 log(solution(arr.map((value) => +value)));
