@@ -4,7 +4,7 @@ const path = require("path");
 const dirname = path.resolve("inputData");
 const vscode = dirname + "/input.txt";
 
-const back = "dev/stdin";
+// const back = "dev/stdin";
 
 const fs = require("fs");
 const number = fs.readFileSync(vscode).toString().trim();

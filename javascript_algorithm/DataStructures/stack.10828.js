@@ -6,6 +6,8 @@ const [n, ...arr] = fs
   .toString()
   .split("\n");
 
+// const [n, ...arr] = fs.readFileSync("dev/stdin").toString().trim().split("\n");
+
 function solution() {
   const stack = [];
   let answer = [];
@@ -22,11 +24,8 @@ function solution() {
       return stack.length;
     },
     empty() {
-      if (stack.length === 0) {
-        return 1;
-      } else {
-        return 0;
-      }
+      if (stack.length === 0) return 1;
+      return 0;
     },
     top() {
       if (this.empty() === 1) return -1;
