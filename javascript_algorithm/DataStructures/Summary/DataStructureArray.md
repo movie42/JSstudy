@@ -1,10 +1,6 @@
-# 자바스크립트의 자료구조
+# 배열
 
-## 자료구조
-
-### 배열
-
-1. 선언
+## 선언
 
 [예제](arrayExample/arrayex1.js)
 
@@ -35,7 +31,7 @@ const arr = new Array().fill(5);
 const arr = Array.from(new Array(5), (v, i) => i + 1);
 ```
 
-2. 값을 넣고 빼는 방법
+## 값을 넣고 빼는 방법
 
 [예제](arrayExample/arrayex2.js)
 
@@ -71,7 +67,7 @@ const arr = [1, 2];
 arr.shift();
 ```
 
-3. 중간에 값을 추가하거나 제거하는 방법
+## 중간에 값을 추가하거나 제거하는 방법
 
 [예제](arrayExample/arrayex3.js)
 
@@ -102,7 +98,7 @@ arr.splice(1, 0, -1, -2);
 console.log(arr); // [1, -1, -2, 2, 3, 4]
 ```
 
-4. 순회
+## 순회
 
 [예제](arrayExample/arrayex4.js)
 
@@ -139,7 +135,7 @@ const arr = [1, 2, 3, 4];
 arr.forEach((value, index) => console.log(value, index));
 ```
 
-5. 값을 찾는 방법
+## 값을 찾는 방법
 
 [예제](arrayExample/arrayex5.js)
 
@@ -172,7 +168,7 @@ arr.filter((value) => value > 2); // [3, 4, 5]
 
 - 그밖에 some, every, findIndex 등 유용한 메서드들이 있다.
 
-6. 값을 변경하기
+## 값을 변경하기
 
 [예제](arrayExample/arrayex6.js)
 
